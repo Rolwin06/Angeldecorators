@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angel Decorators</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #ffffff; color: #222; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; height: 420px;
+      background: linear-gradient(135deg, #fff9e6, #f3e2a1, #d4af37);
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      color: #6b4e16;
+    }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(255,255,255,0.6), rgba(212,175,55,0.25)); }
+    .hero-content { position: relative; z-index: 2; }
+    .hero h1 { font-size: 3.4rem; margin-bottom: 12px; letter-spacing: 2px; }
+
+    /* ===== NAV ===== */
+    nav {
+      background:#fff; border-bottom:1px solid #eee; padding:15px;
+      text-align:center; position:sticky; top:0; z-index:10;
+    }
+    nav a { color:#b8962e; margin:0 15px; text-decoration:none; font-weight:bold; }
+    nav a:hover { color:#6b4e16; }
+    .wishlist-icon { float:right; cursor:pointer; font-weight:bold; color:#6b4e16; }
+
+    /* ===== SECTIONS ===== */
+    .section { padding:40px 25px; }
+    .section h2 { text-align:center; margin-bottom:30px; color:#b8962e; }
+    .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:30px; }
+
+    /* ===== CATEGORY ICONS ===== */
+    .category-row {
+      display: flex; gap: 25px; justify-content: center;
+      overflow-x: auto; padding-bottom: 10px;
+    }
+    .category { text-align: center; text-decoration: none; color: #333; font-weight: bold; min-width: 120px; }
+    .category img {
+      width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15); margin-bottom: 8px;
+    }
+
+    .card {
+      background:#fff; border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,0.12);
+      text-align:center; border:1px solid #f1e3a1;
+    }
+    .card img { width:100%; height:260px; object-fit:cover; cursor:pointer; }
+    .card h3 { margin:15px 0 5px; color:#6b4e16; }
+    .price { color:#d4af37; font-weight:bold; margin-bottom:10px; }
+    .add-wishlist {
+      background:#d4af37; color:#fff; border:none;
+      padding:8px 14px; border-radius:6px; cursor:pointer; margin-bottom:15px;
+    }
+
+    /* ===== WISHLIST PANEL ===== */
+    .wishlist-panel {
+      position: fixed; right: -350px; top: 0; width: 300px; height: 100%;
+      background: #fff; box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+      padding: 20px; transition: right 0.3s; z-index: 1200;
+    }
+    .wishlist-panel.active { right: 0; }
+    .wishlist-item { margin-bottom: 10px; font-size: 0.9rem; }
+
+    /* ===== IMAGE MODAL ===== */
+    .modal {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.85); align-items:center; justify-content:center; z-index:1000;
+    }
+    .modal img { max-width:90%; max-height:90%; border-radius:10px; }
+
+    footer { background:#f9f3d2; color:#6b4e16; text-align:center; padding:20px; border-top:2px solid #d4af37; }
+
+    /* ===== WHATSAPP FLOAT BUTTON ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 1500;
+    }
+    .whatsapp-float:hover { background:#1ebe5d; }
+  </style>
+
+  <script defer>
+    let modal, modalImg;
+    let wishlist = [];
+
+    /* ===== SCREEN TOGGLING ===== */
+    function showPackages() {
+      document.getElementById('mainContent').style.display = 'none';
+      document.getElementById('packagesScreen').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    function showMain() {
+      document.getElementById('packagesScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    }
+
+    /* ===== SCROLL TO SECTION ===== */
+    function scrollToSection(id) {
+      showMain();
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    /* ===== WISHLIST LOGIC ===== */
+    function addToWishlist(name, price, img) {
+      wishlist.push({ name, price, img });
+      updateWishlist();
+    }
+
+    function removeFromWishlist(index) {
+      wishlist.splice(index, 1);
+      updateWishlist();
+    }
+
+    function updateWishlist() {
+      const items = document.getElementById('wishlistItems');
+      const count = document.getElementById('wishlistCount');
+      items.innerHTML = '';
+
+      if (wishlist.length === 0) {
+        items.innerHTML = '<p style="color:#777">Your wishlist is empty</p>';
+        count.innerText = '0';
+        return;
+      }
+
+      wishlist.forEach((item, i) => {
+        items.innerHTML += `
+          <div class="wishlist-item">
+            ${item.name} – ₹${item.price}
+            <button onclick="removeFromWishlist(${i})" style="float:right;border:none;background:none;color:red;cursor:pointer">✖</button>
+          </div>`;
+      });
+
+      count.innerText = wishlist.length;
+    }
+
+    function toggleWishlist() {
+      document.getElementById('wishlistPanel').classList.toggle('active');
+    }
+
+    /* ===== SEND WISHLIST TO WHATSAPP ===== */
+    function sendWishlistToWhatsApp() {
+      if (wishlist.length === 0) {
+        alert('Your wishlist is empty');
+        return;
+      }
+      let message = 'Hi, I am interested in the following decorations:%0A';
+      wishlist.forEach(item => {
+        message += `• ${item.name} - ₹${item.price}%0A`;
+      });
+      const phone = '919886207131';
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    }
+
+    /* ===== GALLERY GENERATOR ===== */
+    function generate(sectionId, folder, prefix) {
+      const gallery = document.getElementById(sectionId);
+      for (let i = 1; i <= 20; i++) {
+        const name = `${prefix} Setup ${i}`;
+        const price = 5000 + i * 1000;
+        const imgSrc = `photos/${folder}/${folder}${i}.jpg`;
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${imgSrc}" onerror="this.style.display='none'">
+          <h3>${name}</h3>
+          <p class="price">₹${price}</p>
+          <button class="add-wishlist" onclick="addToWishlist('${name}',${price},'${imgSrc}')">Add to Wishlist</button>
+        `;
+        const img = card.querySelector('img');
+        img.addEventListener('click', () => { modal.style.display='flex'; modalImg.src=img.src; });
+        gallery.appendChild(card);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      modal = document.getElementById('imageModal');
+      modalImg = document.getElementById('modalImage');
+      modal.addEventListener('click', e => { if (e.target === modal) modal.style.display='none'; });
+
+      generate('weddingGallery','wedding','Wedding');
+      generate('communionGallery','communion','Communion');
+      generate('engagementGallery','engagement','Engagement');
+      generate('roceGallery','roce','Roce');
+      generate('birthdayGallery','birthday','Birthday');
+      generate('cradlingGallery','cradling','Cradling');
+      generate('anniversaryGallery','anniversary','Anniversary');
+
+      /* close wishlist when clicking outside */
+      document.addEventListener('click', e => {
+        const panel = document.getElementById('wishlistPanel');
+        const icon = document.querySelector('.wishlist-icon');
+        if (!panel.contains(e.target) && !icon.contains(e.target)) {
+          panel.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Angel Decorators</h1>
+    <p>Premium Decorations for Every Celebration</p>
+  </div>
+</header>
+
+<nav>
+  <a href="#wedding" onclick="scrollToSection('wedding')">Wedding</a>
+  <a href="#communion" onclick="scrollToSection('communion')">Communion</a>
+  <a href="#engagement" onclick="scrollToSection('engagement')">Engagement</a>
+  <a href="#roce" onclick="scrollToSection('roce')">Roce</a>
+  <a href="#birthday" onclick="scrollToSection('birthday')">Birthday</a>
+  <a href="#cradling" onclick="scrollToSection('cradling')">Cradling</a>
+  <a href="#anniversary" onclick="scrollToSection('anniversary')">Anniversary</a>
+  <a href="#" onclick="showPackages()">Packages</a>
+  <span class="wishlist-icon" onclick="toggleWishlist()">❤️ Wishlist (<span id="wishlistCount">0</span>)</span>
+</nav>
+
+<div id="mainContent">
+  <!-- CATEGORY ICONS -->
+  <div class="section">
+    <div class="category-row">
+      <a href="#wedding" class="category"><img src="photos/icons/wedding.jpg"><span>Wedding</span></a>
+      <a href="#communion" class="category"><img src="photos/icons/communion.jpg"><span>Communion</span></a>
+      <a href="#engagement" class="category"><img src="photos/icons/engagement.jpg"><span>Engagement</span></a>
+      <a href="#roce" class="category"><img src="photos/icons/roce.jpg"><span>Roce</span></a>
+      <a href="#birthday" class="category"><img src="photos/icons/birthday.jpg"><span>Birthday</span></a>
+      <a href="#cradling" class="category"><img src="photos/icons/cradling.jpg"><span>Cradling</span></a>
+      <a href="#anniversary" class="category"><img src="photos/icons/anniversary.jpg"><span>Anniversary</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="wedding"><h2>Wedding</h2><div class="gallery" id="weddingGallery"></div></div>
+  <div class="section" id="communion"><h2>Communion</h2><div class="gallery" id="communionGallery"></div></div>
+  <div class="section" id="engagement"><h2>Engagement</h2><div class="gallery" id="engagementGallery"></div></div>
+  <div class="section" id="roce"><h2>Roce</h2><div class="gallery" id="roceGallery"></div></div>
+  <div class="section" id="birthday"><h2>Birthday</h2><div class="gallery" id="birthdayGallery"></div></div>
+  <div class="section" id="cradling"><h2>Cradling</h2><div class="gallery" id="cradlingGallery"></div></div>
+  <div class="section" id="anniversary"><h2>Anniversary</h2><div class="gallery" id="anniversaryGallery"></div></div>
+</div>
+
+<!-- PACKAGES SCREEN -->
+<div class="section" id="packagesScreen" style="display:none">
+  <h2>Our Packages</h2>
+  <div class="gallery" id="packagesGallery">
+    <div class="card"><h3>Silver Package</h3><p class="price">₹35,000</p></div>
+    <div class="card"><h3>Gold Package</h3><p class="price">₹55,000</p></div>
+    <div class="card"><h3>Platinum Package</h3><p class="price">₹85,000</p></div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Angel Decorators | Contact: 9886207131</p>
+</footer>
+
+<!-- WISHLIST PANEL -->
+<div id="wishlistPanel" class="wishlist-panel">
+  <h3>Your Wishlist</h3>
+  <div id="wishlistItems"></div>
+  <button onclick="sendWishlistToWhatsApp()" style="margin-top:15px;width:100%;padding:10px;background:#25D366;color:white;border:none;border-radius:6px;cursor:pointer">Send to WhatsApp</button>
+</div>
+</div>
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal"><img id="modalImage"></div>
+
+
+<!-- WHATSAPP FLOAT BUTTON -->
+<a class="whatsapp-float" href="https://wa.me/919886207131" target="_blank">💬 WhatsApp</a>
+
+</body>
+</html>
