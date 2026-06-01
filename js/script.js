@@ -43,12 +43,10 @@ async function loadSection(url, container) {
   // 2. Import & initialise per-section modules
   const { initHeroParticles, initHeroParallax } = await import('./home.js');
   const { initGallery }                         = await import('./gallery.js');
-  const { initContactForm }                     = await import('./contact.js');
 
   initHeroParticles();
   initHeroParallax();
   await initGallery();
-  initContactForm();
 
   // 3. Shared behaviours (run after DOM is fully populated)
 

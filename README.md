@@ -20,13 +20,12 @@
 ├── js/
 │   ├── script.js              # Main orchestrator – loads sections & initialises modules
 │   ├── home.js                # Hero particles & parallax
-│   ├── gallery.js             # Dynamic gallery, filters & lightbox
-│   └── contact.js             # Contact form & toast notifications
+│   └── gallery.js             # Dynamic gallery, filters & lightbox
 │
 ├── sections/
 │   ├── home.html              # Hero section partial
 │   ├── gallery.html           # Gallery + Lightbox section partial
-│   ├── contact.html           # Contact + Toast section partial
+│   ├── contact.html           # Contact info section partial
 │   └── footer.html            # Footer + Floating buttons partial
 │
 ├── assets/
