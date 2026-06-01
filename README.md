@@ -13,7 +13,6 @@
 ├── css/
 │   ├── style.css              # Global tokens, reset, navbar, buttons, shared utilities
 │   ├── home.css               # Hero / Home section
-│   ├── about.css              # About Us section
 │   ├── services.css           # Services & Counters sections
 │   ├── gallery.css            # Gallery & Lightbox
 │   ├── contact.css            # Contact section & form
@@ -28,7 +27,6 @@
 │
 ├── sections/
 │   ├── home.html              # Hero section partial
-│   ├── about.html             # About section partial
 │   ├── services.html          # Services + Counters section partial
 │   ├── gallery.html           # Gallery + Lightbox section partial
 │   ├── contact.html           # Contact + Toast section partial

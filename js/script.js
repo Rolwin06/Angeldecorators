@@ -31,7 +31,6 @@ async function loadSection(url, container) {
   // 1. Load every section partial in order
   const sections = [
     'sections/home.html',
-    'sections/about.html',
     'sections/services.html',
     'sections/gallery.html',
     'sections/contact.html',
