@@ -13,7 +13,7 @@ export const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 /** Fetch an HTML partial and inject it into the given container. */
 async function loadSection(url, container) {
   try {
-    const res  = await fetch(url);
+    const res = await fetch(url);
     const html = await res.text();
     container.insertAdjacentHTML('beforeend', html);
   } catch (err) {
@@ -42,7 +42,7 @@ async function loadSection(url, container) {
 
   // 2. Import & initialise per-section modules
   const { initHeroParticles, initHeroParallax } = await import('./home.js');
-  const { initGallery }                         = await import('./gallery.js');
+  const { initGallery } = await import('./gallery.js');
 
   initHeroParticles();
   initHeroParallax();
@@ -57,8 +57,8 @@ async function loadSection(url, container) {
   }
 
   /* ── Navbar scroll effect ── */
-  const navbar   = $('#navbar');
-  const backTop  = $('#backToTop');
+  const navbar = $('#navbar');
+  const backTop = $('#backToTop');
 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
@@ -67,14 +67,14 @@ async function loadSection(url, container) {
   }, { passive: true });
 
   /* ── Active nav-link on scroll ── */
-  const navLinks    = $$('.nav-link');
-  const sectionEls  = $$('section[id]');
+  const navLinks = $$('.nav-link');
+  const sectionEls = $$('section[id]');
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY + 100;
     sectionEls.forEach((sec) => {
       const top = sec.offsetTop;
-      const id  = sec.id;
+      const id = sec.id;
       if (scrollY >= top && scrollY < top + sec.offsetHeight) {
         navLinks.forEach((link) => {
           link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
@@ -84,8 +84,8 @@ async function loadSection(url, container) {
   }, { passive: true });
 
   /* ── Mobile menu ── */
-  const hamburger  = $('#hamburger');
-  const navMenu    = $('#navMenu');
+  const hamburger = $('#hamburger');
+  const navMenu = $('#navMenu');
   const navOverlay = $('#navOverlay');
 
   function toggleMenu() {

@@ -4,9 +4,9 @@
 
 import { $, $$ } from './script.js';
 
-let galleryItems   = [];   // current DOM nodes
-let currentIndex   = 0;
-let visibleImages  = [];
+let galleryItems = [];   // current DOM nodes
+let currentIndex = 0;
+let visibleImages = [];
 
 /* ── Helpers ────────────────────────────────────────────────────── */
 
@@ -18,17 +18,17 @@ function getVisible() {
 
 function openLightbox(index) {
   visibleImages = getVisible();
-  currentIndex  = index;
-  const item    = visibleImages[index];
-  const img     = $('img', item);
+  currentIndex = index;
+  const item = visibleImages[index];
+  const img = $('img', item);
   const caption = $('h4', item);
 
-  const lbImg     = $('#lightboxImg');
+  const lbImg = $('#lightboxImg');
   const lbCaption = $('#lightboxCaption');
-  const lightbox  = $('#lightbox');
+  const lightbox = $('#lightbox');
 
-  lbImg.src  = img.src;
-  lbImg.alt  = img.alt;
+  lbImg.src = img.src;
+  lbImg.alt = img.alt;
   lbCaption.textContent = caption ? caption.textContent : '';
   lightbox.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -41,12 +41,12 @@ function closeLightbox() {
 
 function navigate(dir) {
   visibleImages = getVisible();
-  currentIndex  = (currentIndex + dir + visibleImages.length) % visibleImages.length;
+  currentIndex = (currentIndex + dir + visibleImages.length) % visibleImages.length;
 
-  const item    = visibleImages[currentIndex];
-  const img     = $('img', item);
+  const item = visibleImages[currentIndex];
+  const img = $('img', item);
   const caption = $('h4', item);
-  const lbImg   = $('#lightboxImg');
+  const lbImg = $('#lightboxImg');
 
   lbImg.style.opacity = '0';
   setTimeout(() => {
@@ -63,18 +63,18 @@ function navigate(dir) {
  * Fetch gallery.json, build filter buttons + gallery grid, wire up lightbox.
  */
 export async function initGallery() {
-  const grid       = $('#galleryGrid');
+  const grid = $('#galleryGrid');
   const filtersDiv = $('#galleryFilters');
   if (!grid || !filtersDiv) return;
 
   try {
-    const res  = await fetch('data/gallery.json');
+    const res = await fetch('data/gallery.json');
     const data = await res.json();
 
     /* ── Build filter buttons from unique categories ── */
     const categories = ['all', ...new Set(data.map((d) => d.category))];
     filtersDiv.innerHTML = categories.map((cat) => {
-      const label  = cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1);
+      const label = cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1);
       const active = cat === 'all' ? ' active' : '';
       return `<button class="filter-btn${active}" data-filter="${cat}" id="filter-${cat}">${label}</button>`;
     }).join('');
@@ -139,8 +139,8 @@ export async function initGallery() {
   // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (!$('#lightbox')?.classList.contains('active')) return;
-    if (e.key === 'Escape')     closeLightbox();
-    if (e.key === 'ArrowLeft')  navigate(-1);
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
     if (e.key === 'ArrowRight') navigate(1);
   });
 
