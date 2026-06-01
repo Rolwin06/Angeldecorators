@@ -1,0 +1,33 @@
+<!-- ===== Gallery Section ===== -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label">Our Portfolio</div>
+      <h2>Explore Our <span class="highlight">Gallery</span></h2>
+      <p>A glimpse into the magical worlds we've created for our valued clients.</p>
+    </div>
+
+    <!-- Filter buttons generated dynamically from gallery.json categories -->
+    <div class="gallery-filters reveal" id="galleryFilters"></div>
+
+    <!-- Gallery items populated dynamically from data/gallery.json -->
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Lightbox ===== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Image viewer">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close lightbox">
+      <i class="fas fa-times"></i>
+    </button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <img src="" alt="" id="lightboxImg" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>

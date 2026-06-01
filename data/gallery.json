@@ -1,0 +1,66 @@
+[
+  {
+    "id": "wedding-1",
+    "category": "wedding",
+    "image": "assets/images/hero-wedding.png",
+    "title": "Royal Wedding Mandap",
+    "label": "Wedding Decoration",
+    "alt": "Elegant wedding mandap decoration with white and gold floral arrangements"
+  },
+  {
+    "id": "birthday-1",
+    "category": "birthday",
+    "image": "assets/images/gallery-birthday.png",
+    "title": "Elegant Birthday Setup",
+    "label": "Birthday Decoration",
+    "alt": "Colorful birthday party decoration with balloon arch and dessert table"
+  },
+  {
+    "id": "engagement-1",
+    "category": "engagement",
+    "image": "assets/images/gallery-engagement.png",
+    "title": "Romantic Ring Ceremony",
+    "label": "Engagement Decoration",
+    "alt": "Romantic engagement ceremony decoration with floral canopy"
+  },
+  {
+    "id": "stage-1",
+    "category": "stage",
+    "image": "assets/images/gallery-stage.png",
+    "title": "Grand Reception Stage",
+    "label": "Stage Decoration",
+    "alt": "Grand wedding reception stage with royal throne and floral backdrop"
+  },
+  {
+    "id": "wedding-2",
+    "category": "wedding",
+    "image": "assets/images/gallery-wedding2.png",
+    "title": "Outdoor Wedding Arch",
+    "label": "Wedding Decoration",
+    "alt": "Outdoor wedding decoration with floral arch and fairy lights"
+  },
+  {
+    "id": "birthday-2",
+    "category": "birthday",
+    "image": "assets/images/gallery-birthday2.png",
+    "title": "Kids Birthday Party",
+    "label": "Birthday Decoration",
+    "alt": "Colorful children's birthday party with balloon arch and themed decorations"
+  },
+  {
+    "id": "housewarming-1",
+    "category": "housewarming",
+    "image": "assets/images/gallery-housewarming.png",
+    "title": "Traditional Gruhapravesam",
+    "label": "Housewarming Decoration",
+    "alt": "Traditional housewarming decoration with marigold garlands and rangoli"
+  },
+  {
+    "id": "stage-2",
+    "category": "stage",
+    "image": "assets/images/hero-wedding.png",
+    "title": "Crystal Stage Setup",
+    "label": "Stage Decoration",
+    "alt": "Luxury stage decoration with crystal backdrop and premium lighting"
+  }
+]
