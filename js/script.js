@@ -31,7 +31,6 @@ async function loadSection(url, container) {
   // 1. Load every section partial in order
   const sections = [
     'sections/home.html',
-    'sections/services.html',
     'sections/gallery.html',
     'sections/contact.html',
     'sections/footer.html',
@@ -43,16 +42,13 @@ async function loadSection(url, container) {
 
   // 2. Import & initialise per-section modules
   const { initHeroParticles, initHeroParallax } = await import('./home.js');
-  const { initServices, initCounters }          = await import('./services.js');
   const { initGallery }                         = await import('./gallery.js');
   const { initContactForm }                     = await import('./contact.js');
 
   initHeroParticles();
   initHeroParallax();
-  await initServices();
   await initGallery();
   initContactForm();
-  initCounters();
 
   // 3. Shared behaviours (run after DOM is fully populated)
 

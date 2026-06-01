@@ -13,7 +13,6 @@
 ├── css/
 │   ├── style.css              # Global tokens, reset, navbar, buttons, shared utilities
 │   ├── home.css               # Hero / Home section
-│   ├── services.css           # Services & Counters sections
 │   ├── gallery.css            # Gallery & Lightbox
 │   ├── contact.css            # Contact section & form
 │   └── footer.css             # Footer section
@@ -21,13 +20,11 @@
 ├── js/
 │   ├── script.js              # Main orchestrator – loads sections & initialises modules
 │   ├── home.js                # Hero particles & parallax
-│   ├── services.js            # Dynamic service cards & counter animation
 │   ├── gallery.js             # Dynamic gallery, filters & lightbox
 │   └── contact.js             # Contact form & toast notifications
 │
 ├── sections/
 │   ├── home.html              # Hero section partial
-│   ├── services.html          # Services + Counters section partial
 │   ├── gallery.html           # Gallery + Lightbox section partial
 │   ├── contact.html           # Contact + Toast section partial
 │   └── footer.html            # Footer + Floating buttons partial
@@ -38,7 +35,6 @@
 │   └── logo/                  # Logo assets (future use)
 │
 └── data/
-    ├── services.json          # Service card data (rendered dynamically)
     ├── gallery.json           # Gallery item data (rendered dynamically)
     └── testimonials.json      # Testimonials data (ready for future use)
 ```
@@ -47,10 +43,9 @@
 
 - **Mobile-first responsive design** with smooth animations
 - **Dynamic section loading** – HTML partials fetched at runtime
-- **Data-driven content** – services & gallery rendered from JSON
+- **Data-driven content** – gallery rendered from JSON
 - **Lightbox** with keyboard & touch swipe navigation
 - **Floating WhatsApp & Call** buttons with pulse animation
-- **Counter animations** with eased count-up
 - **SEO-friendly** meta tags & semantic HTML5
 
 ## 🚀 Getting Started
@@ -79,7 +74,6 @@ npx serve .
 | Business name        | `index.html` (title, navbar), `sections/home.html`      |
 | Phone / WhatsApp     | Search `919876543210` across all HTML files              |
 | Email / Address      | `sections/contact.html`, `sections/footer.html`         |
-| Services             | `data/services.json`                                    |
 | Gallery images       | `data/gallery.json` + add images to `assets/images/`    |
 | Colours & fonts      | `css/style.css` (`:root` custom properties)             |
 
